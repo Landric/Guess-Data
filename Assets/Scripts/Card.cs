@@ -12,7 +12,7 @@ public class Card : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        board = transform.parent.GetComponent<Board>();
+        board = transform.parent.parent.GetComponent<Board>();
 
         data = new Dictionary<string, object>();
         data.Add("Foo", "Bar");
@@ -54,7 +54,7 @@ public class Card : MonoBehaviour {
 
     IEnumerator FlipDown()
     {
-        Quaternion target = board.PlayerID == 0 ? Quaternion.AngleAxis(-90, Vector3.right) : Quaternion.AngleAxis(-90, Vector3.right);
+        Quaternion target = Quaternion.AngleAxis(-90, Vector3.right);
         while (transform.localRotation != target)
         {
             transform.localRotation = Quaternion.Lerp(transform.localRotation, target, 0.1f);
