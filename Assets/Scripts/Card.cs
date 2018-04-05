@@ -6,7 +6,7 @@ public class Card : MonoBehaviour {
 
     public GameObject ContentPrefab;
 
-    Board board;
+    public Board board;
 
     Dictionary<string, object> data;
 

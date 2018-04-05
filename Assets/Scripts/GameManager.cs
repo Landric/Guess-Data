@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     const int NumberOfPlayers = 2;
-    int CurrentPlayerID = 0;
+    public int CurrentPlayerID = 0;
 
 	// Use this for initialization
 	void Start () {
