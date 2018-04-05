@@ -33,7 +33,7 @@ public class Board : MonoBehaviour {
         //Resize board to fit
         Transform boardVisual = transform.GetChild(0);
         boardVisual.localScale = new Vector3((BOARD_PADDING * 2) + columns * (CARD_X_SCALE + CARD_X_PADDING) + CARD_X_PADDING, BOARD_THICKNESS, (BOARD_PADDING * 2) + rows * (CARD_Y_SCALE + CARD_Y_PADDING) + CARD_Y_PADDING);
-        transform.localPosition = new Vector3(0f, -0.1f, -(boardVisual.localScale.z/2f + BOARD_PADDING));
+        transform.localPosition = new Vector3(0f, -0.1f, -4f);
 
         //Instantiate cards
         float yMod = -(boardVisual.localScale.z / 2) + BOARD_PADDING + CARD_Y_PADDING + CARD_Y_SCALE;

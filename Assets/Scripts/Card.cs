@@ -40,6 +40,11 @@ public class Card : MonoBehaviour {
                 }
             }
         }
+
+        if (board.PlayerID == 1)
+        {
+            ToggleMask();
+        }
     }
 	
 	// Update is called once per frame
@@ -49,7 +54,16 @@ public class Card : MonoBehaviour {
 
     public void Clicked()
     {
-        StartCoroutine(FlipDown());
+        ToggleMask();
+        //StartCoroutine(FlipDown());
+    }
+
+    void ToggleMask()
+    {
+        foreach (Transform child in transform.GetChild(0))
+        {
+            child.gameObject.SetActive(!child.gameObject.activeSelf);
+        }
     }
 
     IEnumerator FlipDown()
