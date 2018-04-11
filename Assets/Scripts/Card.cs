@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour {
 
@@ -54,6 +55,10 @@ public class Card : MonoBehaviour {
 
     public void Clicked()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         ToggleMask();
         //StartCoroutine(FlipDown());
     }
