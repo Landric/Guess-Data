@@ -458,7 +458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &346083486
 RectTransform:
   m_ObjectHideFlags: 0
@@ -885,6 +885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 994252971}
   - component: {fileID: 994252972}
+  - component: {fileID: 994252973}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -917,6 +918,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentPlayerID: 0
+--- !u!114 &994252973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 994252970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 895f9a5a293c57849ba9606c6a897700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayContentPrefab: {fileID: 1964474961905364, guid: 34b5858f5957f2d4ab4e05cd6f6096e5,
+    type: 2}
 --- !u!1 &1297503026
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,7 +1004,7 @@ GameObject:
   - component: {fileID: 1411082742}
   - component: {fileID: 1411082741}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

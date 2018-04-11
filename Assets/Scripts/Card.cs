@@ -7,12 +7,21 @@ public class Card : MonoBehaviour {
 
     public GameObject ContentPrefab;
 
+    GameManager gm;
+    DisplayManager dm;
+
     public Board board;
 
-    Dictionary<string, object> data;
+    public Dictionary<string, object> data;
 
 	// Use this for initialization
 	void Start () {
+
+        GameObject managers = GameObject.Find("Managers");
+
+        gm = managers.GetComponent<GameManager>();
+        dm = managers.GetComponent<DisplayManager>();
+
         board = transform.parent.parent.GetComponent<Board>();
 
         data = new Dictionary<string, object>();
@@ -53,7 +62,7 @@ public class Card : MonoBehaviour {
 	
 	}
 
-    public void Clicked()
+    public void OnMouseDown()
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
@@ -61,6 +70,22 @@ public class Card : MonoBehaviour {
         }
         ToggleMask();
         //StartCoroutine(FlipDown());
+    }
+
+    public void OnMouseEnter()
+    {
+        if (board.PlayerID == gm.CurrentPlayerID)
+        {
+            dm.UpdateCardPanel(this);
+        }
+    }
+
+    public void OnMouseExit()
+    {
+        if (board.PlayerID == gm.CurrentPlayerID)
+        {
+            dm.ClearCardPanel();
+        }
     }
 
     void ToggleMask()
