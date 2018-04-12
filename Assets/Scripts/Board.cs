@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 
 public class Board : MonoBehaviour {
 
@@ -18,6 +20,8 @@ public class Board : MonoBehaviour {
     float CARD_X_SCALE;
     float CARD_Y_SCALE;
 
+    
+
 
     // Use this for initialization
     void Start () {
@@ -25,18 +29,20 @@ public class Board : MonoBehaviour {
         CARD_X_SCALE = CardPrefab.transform.GetChild(0).localScale.x;
         CARD_Y_SCALE = CardPrefab.transform.GetChild(0).localScale.y;
 
-        int number = 12; //Replace with LoadCSVData() etc.
-        
+        GameManager gm = FindObjectOfType<GameManager>();
+        Queue<string> dataRows = new Queue<string>(gm.GetData().Split('\n'));
+        string[] headers = dataRows.Dequeue().Split(',');
+
         //Calculate optimal layout
-        int rows = (int)Mathf.Sqrt(number);
-        int columns = (int)Mathf.Ceil(number / (float)rows);
+        int rows = (int)Mathf.Sqrt(dataRows.Count);
+        int columns = (int)Mathf.Ceil(dataRows.Count / (float)rows);
 
         //Resize board to fit
         Transform boardVisual = transform.GetChild(0);
         boardVisual.localScale = new Vector3((BOARD_PADDING * 2) + columns * (CARD_X_SCALE + CARD_X_PADDING) + CARD_X_PADDING, BOARD_THICKNESS, (BOARD_PADDING * 2) + rows * (CARD_Y_SCALE + CARD_Y_PADDING) + CARD_Y_PADDING);
         transform.localPosition = new Vector3(0f, -0.1f, -4f);
+        
 
-        //Instantiate cards
         float yMod = -(boardVisual.localScale.z / 2) + BOARD_PADDING + CARD_Y_PADDING + CARD_Y_SCALE;
         for (int y = 0; y < rows; y++)
         {
@@ -44,24 +50,52 @@ public class Board : MonoBehaviour {
 
             for (int x = 0; x < columns; x++)
             {
+                if(dataRows.Count <= 0)
+                {
+                    break;
+                }
                 GameObject cardGO = Instantiate(CardPrefab) as GameObject;
                 cardGO.transform.SetParent(transform.GetChild(1), false);
                 cardGO.transform.localPosition = new Vector3(xMod, 0, yMod);
                 xMod += CARD_X_SCALE + CARD_X_PADDING;
 
 
-                //TODO: Init card data from e.g. csv file
-                cardGO.GetComponentInChildren<TextMesh>().text = x.ToString() + "," + y.ToString();
                 Card card = cardGO.GetComponent<Card>();
-                card.title = x.ToString() + "," + y.ToString();
+
+                string[] cardData = dataRows.Dequeue().Split(',');
+                card.title = cardData[0];
+                cardGO.GetComponentInChildren<TextMesh>().text = card.title;
                 card.data = new Dictionary<string, object>();
-                card.data.Add("Foo", "Bar");
-                card.data.Add("Fizz", x);
-                card.data.Add("Buzz", y);
+                for (int i = 1; i < headers.Length; i++)
+                {
+                    
+                    object data;
+                    try
+                    {
+                        data = float.Parse(cardData[i]);
+                    }
+                    catch
+                    {
+                        data = cardData[i];
+                    }
+                    card.data.Add(headers[i], data);
+                }
             }
 
             yMod += CARD_Y_SCALE + CARD_Y_PADDING;
+            if (dataRows.Count <= 0)
+            {
+                break;
+            }
         }
+
+        //Position chosen card
+        Transform slot = transform.Find("ChosenCardSlot");
+        slot.localPosition = new Vector3(slot.localPosition.x, slot.localPosition.y, -boardVisual.localScale.z / 2);
+
+        //TODO: Allow use to pick their card?
+        //TODO: Tie this chosen card into the game manager
+        //TODO: Create the card at random
         
 	}
 	

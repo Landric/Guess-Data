@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    public TextAsset csvFile;
+
     const int NumberOfPlayers = 2;
     public int CurrentPlayerID = 0;
 
@@ -16,4 +18,9 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public string GetData()
+    {
+        return csvFile.text;
+    }
 }
