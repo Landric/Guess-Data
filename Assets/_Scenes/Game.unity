@@ -747,6 +747,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012883103748, guid: 0ba42fedca352034eba966e8b69b2bc3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0ba42fedca352034eba966e8b69b2bc3, type: 2}
   m_IsPrefabParent: 0
@@ -960,6 +964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9a664ccdfc898478285830334b4bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnMask: {fileID: 346083485}
   csvFile: {fileID: 4900000, guid: 3cbc329aa83a4484c9b0f24a0bfa66c1, type: 3}
   CurrentPlayerID: 0
 --- !u!114 &994252973
@@ -1625,6 +1630,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010170372756, guid: 0ba42fedca352034eba966e8b69b2bc3, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012883103748, guid: 0ba42fedca352034eba966e8b69b2bc3, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
