@@ -24,7 +24,7 @@ public class TurnMask : MonoBehaviour {
 
         timeLeft -= Time.deltaTime;
 
-        if (Input.anyKey)
+        if (Input.anyKey && switchTime - timeLeft > 0.3f)
         {
             timeLeft = 0f;
         }

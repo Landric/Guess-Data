@@ -64,8 +64,11 @@ public class Card : MonoBehaviour {
         {
             return;
         }
-        //ToggleMask();
-        StartCoroutine(FlipDown());
+
+        if (board.PlayerID == gm.CurrentPlayerID)
+        {
+            StartCoroutine(FlipDown());
+        }
     }
 
     public void OnMouseEnter()
@@ -84,7 +87,7 @@ public class Card : MonoBehaviour {
         }
     }
 
-    void ToggleMask()
+    public void ToggleMask()
     {
         foreach (Transform child in transform.GetChild(0))
         {
