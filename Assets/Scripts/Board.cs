@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Board : MonoBehaviour {
 
@@ -47,7 +48,16 @@ public class Board : MonoBehaviour {
                 cardGO.transform.SetParent(transform.GetChild(1), false);
                 cardGO.transform.localPosition = new Vector3(xMod, 0, yMod);
                 xMod += CARD_X_SCALE + CARD_X_PADDING;
+
+
+                //TODO: Init card data from e.g. csv file
                 cardGO.GetComponentInChildren<TextMesh>().text = x.ToString() + "," + y.ToString();
+                Card card = cardGO.GetComponent<Card>();
+                card.title = x.ToString() + "," + y.ToString();
+                card.data = new Dictionary<string, object>();
+                card.data.Add("Foo", "Bar");
+                card.data.Add("Fizz", x);
+                card.data.Add("Buzz", y);
             }
 
             yMod += CARD_Y_SCALE + CARD_Y_PADDING;

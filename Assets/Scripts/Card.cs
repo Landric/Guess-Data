@@ -12,6 +12,7 @@ public class Card : MonoBehaviour {
 
     public Board board;
 
+    public string title;
     public Dictionary<string, object> data;
 
 	// Use this for initialization
@@ -23,11 +24,6 @@ public class Card : MonoBehaviour {
         dm = managers.GetComponent<DisplayManager>();
 
         board = transform.parent.parent.GetComponent<Board>();
-
-        data = new Dictionary<string, object>();
-        data.Add("Foo", "Bar");
-        data.Add("Fizz", 3);
-
 
         float yMod = 0;
 
@@ -68,8 +64,8 @@ public class Card : MonoBehaviour {
         {
             return;
         }
-        ToggleMask();
-        //StartCoroutine(FlipDown());
+        //ToggleMask();
+        StartCoroutine(FlipDown());
     }
 
     public void OnMouseEnter()
@@ -98,6 +94,8 @@ public class Card : MonoBehaviour {
 
     IEnumerator FlipDown()
     {
+        GetComponentInChildren<BoxCollider>().enabled = false;
+
         Quaternion target = Quaternion.AngleAxis(-90, Vector3.right);
         while (transform.localRotation != target)
         {
