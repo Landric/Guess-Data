@@ -149,7 +149,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 175d11b2acdf2d84699a7e24eea1cd2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -322,3 +322,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ContentPrefab: {fileID: 1000011929635774, guid: ba90afde61fc48c4b88ac82b860489ff,
     type: 2}
+  board: {fileID: 0}
+  title: 

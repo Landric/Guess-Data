@@ -11,14 +11,27 @@ public class GameManager : MonoBehaviour {
     const int NumberOfPlayers = 2;
     public int CurrentPlayerID = 0;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    public Card[] ChosenCards;
+
+
+
+    public enum TurnState { CHOOSE_CARD, QUESTION, FLIP, READY}
+
+    public TurnState turnState;
+
+    // Use this for initialization
+    void Start () {
+        //ChosenCards = new Card[NumberOfPlayers];
+        turnState = TurnState.CHOOSE_CARD;
+        StepTurn();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-
+        if (Input.anyKeyDown)
+        {
+            GetComponent<DisplayManager>().SetDecisionPanel();
+        }
     }
 
     public string GetData()
@@ -33,6 +46,30 @@ public class GameManager : MonoBehaviour {
         foreach (Card card in FindObjectsOfType<Card>())
         {
             card.ToggleMask();
+        }
+
+        CurrentPlayerID = (CurrentPlayerID + 1) % NumberOfPlayers;
+
+        turnState = (ChosenCards[CurrentPlayerID] == null) ? TurnState.CHOOSE_CARD : TurnState.QUESTION;
+
+        StepTurn();
+    }
+
+    public void StepTurn()
+    {
+        switch (turnState)
+        {
+            case TurnState.CHOOSE_CARD:
+                GameObject.Find("Next Turn Button").SetActive(true);
+                turnState = TurnState.READY;
+                break;
+            case TurnState.QUESTION:
+                break;
+            case TurnState.FLIP:
+                break;
+            case TurnState.READY:
+                NextTurn();
+                break;
         }
     }
 }

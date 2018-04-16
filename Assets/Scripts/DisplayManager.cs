@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DisplayManager : MonoBehaviour {
 
-    public GameObject displayContentPrefab;
+    public GameObject displayContentPrefab, decisionContentPrefab;
 
     GameObject cardPanel, decisionPanel;
 
@@ -70,5 +70,38 @@ public class DisplayManager : MonoBehaviour {
         {
             child.gameObject.SetActive(false);
         }
+    }
+
+    void InitDecisionPanel(Card initCard)
+    {
+        float yMod = 0f;
+
+        Transform decisionCardPanel = decisionPanel.transform.Find("Card");
+        foreach (KeyValuePair<string, object> pair in initCard.data)
+        {
+            GameObject content = Instantiate(decisionContentPrefab);
+            content.transform.SetParent(decisionCardPanel, false);
+            content.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 100f + yMod);
+
+            yMod += 35f;
+
+            content.transform.Find("Label").GetComponent<Text>().text = pair.Key;
+
+            //TODO: Attach listeners to buttons here
+        }
+    }
+
+    public void SetDecisionPanel()
+    {
+        //If the only child is "Title", make sure to instantiate the data fields
+        if (decisionPanel.transform.Find("Card").childCount <= 1)
+        {
+            InitCardPanel(FindObjectOfType<GameManager>().ChosenCards[0]);
+        }
+
+        decisionPanel.transform.Find("StringPanel").gameObject.SetActive(false);
+        decisionPanel.transform.Find("NumberPanel").gameObject.SetActive(false);
+        decisionPanel.transform.Find("TitlePanel").gameObject.SetActive(false);
+        decisionPanel.transform.Find("InstructionText").gameObject.SetActive(false);
     }
 }

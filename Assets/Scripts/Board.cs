@@ -20,7 +20,7 @@ public class Board : MonoBehaviour {
     float CARD_X_SCALE;
     float CARD_Y_SCALE;
 
-    
+    GameManager gm;
 
 
     // Use this for initialization
@@ -29,7 +29,7 @@ public class Board : MonoBehaviour {
         CARD_X_SCALE = CardPrefab.transform.GetChild(0).localScale.x;
         CARD_Y_SCALE = CardPrefab.transform.GetChild(0).localScale.y;
 
-        GameManager gm = FindObjectOfType<GameManager>();
+        gm = FindObjectOfType<GameManager>();
         Queue<string> dataRows = new Queue<string>(gm.GetData().Split('\n'));
         string[] headers = dataRows.Dequeue().Split(',');
 
@@ -41,7 +41,6 @@ public class Board : MonoBehaviour {
         Transform boardVisual = transform.GetChild(0);
         boardVisual.localScale = new Vector3((BOARD_PADDING * 2) + columns * (CARD_X_SCALE + CARD_X_PADDING) + CARD_X_PADDING, BOARD_THICKNESS, (BOARD_PADDING * 2) + rows * (CARD_Y_SCALE + CARD_Y_PADDING) + CARD_Y_PADDING);
         transform.localPosition = new Vector3(0f, -0.1f, -4f);
-        
 
         float yMod = -(boardVisual.localScale.z / 2) + BOARD_PADDING + CARD_Y_PADDING + CARD_Y_SCALE;
         for (int y = 0; y < rows; y++)
@@ -94,9 +93,15 @@ public class Board : MonoBehaviour {
         slot.localPosition = new Vector3(slot.localPosition.x, slot.localPosition.y, -boardVisual.localScale.z / 2);
 
         //TODO: Allow use to pick their card?
-        //TODO: Tie this chosen card into the game manager
-        //TODO: Create the card at random
-        
+        GameObject chosen = Instantiate(FindObjectsOfType<Card>()[Random.Range(0, FindObjectsOfType<Card>().Length - 1)].gameObject);
+        chosen.transform.SetParent(slot, false);
+        chosen.transform.localPosition = Vector3.zero;
+
+        if(gm.ChosenCards.Length <= 0)
+        {
+            gm.ChosenCards = new Card[2];
+        }
+        gm.ChosenCards[PlayerID] = chosen.GetComponent<Card>(); 
 	}
 	
 	// Update is called once per frame
