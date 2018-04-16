@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public GameObject turnMask;
+    public GameObject nextTurnButton;
 
     public TextAsset csvFile;
 
@@ -42,6 +43,9 @@ public class GameManager : MonoBehaviour {
     public void NextTurn()
     {
         turnMask.SetActive(true);
+        //TODO: Set camera position programatically
+        Camera.main.transform.localPosition = new Vector3(0, 6, -10);
+        Camera.main.transform.localRotation = Quaternion.Euler(50, 0, 0);
         Camera.main.transform.parent.Rotate(new Vector3(0, 180, 0));
         foreach (Card card in FindObjectsOfType<Card>())
         {
@@ -60,16 +64,26 @@ public class GameManager : MonoBehaviour {
         switch (turnState)
         {
             case TurnState.CHOOSE_CARD:
-                GameObject.Find("Next Turn Button").SetActive(true);
-                turnState = TurnState.READY;
+                nextTurnButton.SetActive(true);
+                //No need to change turn state as this will happen when NextTurn() is called
                 break;
             case TurnState.QUESTION:
+                GameObject.Find("DecisionPanel").SetActive(false);
+                GameObject.Find("Next Turn Button").SetActive(true);
                 break;
             case TurnState.FLIP:
+                //Should never be stepped at this point
+                //They should press the "Next Turn" button instead
+                throw new System.Exception("Trying to StepTurn() while turnState is TurnState.FLIP; how did this happen?!");
                 break;
+            
+            //Not using READY state yet as there is nothing forcing a player to select all the correct cards;
+            //(i.e. they are currently free to "miss" them - or even flip the correct card!!)    
+            /*
             case TurnState.READY:
                 NextTurn();
                 break;
+            */
         }
     }
 }

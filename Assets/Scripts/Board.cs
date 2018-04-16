@@ -42,6 +42,9 @@ public class Board : MonoBehaviour {
         boardVisual.localScale = new Vector3((BOARD_PADDING * 2) + columns * (CARD_X_SCALE + CARD_X_PADDING) + CARD_X_PADDING, BOARD_THICKNESS, (BOARD_PADDING * 2) + rows * (CARD_Y_SCALE + CARD_Y_PADDING) + CARD_Y_PADDING);
         transform.localPosition = new Vector3(0f, -0.1f, -4f);
 
+        //TODO: Set camera position programatically
+        Camera.main.transform.localPosition = new Vector3(0, 6, -10);
+
         float yMod = -(boardVisual.localScale.z / 2) + BOARD_PADDING + CARD_Y_PADDING + CARD_Y_SCALE;
         for (int y = 0; y < rows; y++)
         {
@@ -93,7 +96,15 @@ public class Board : MonoBehaviour {
         slot.localPosition = new Vector3(slot.localPosition.x, slot.localPosition.y, -boardVisual.localScale.z / 2);
 
         //TODO: Allow use to pick their card?
-        GameObject chosen = Instantiate(FindObjectsOfType<Card>()[Random.Range(0, FindObjectsOfType<Card>().Length - 1)].gameObject);
+
+        //For some reason that I don't quite understand, Instantiate()-ing the card clears 
+        //the Dictionary stored in data (but not any of the other variables?), so here
+        //we grab it, and then reassign it after instantiating
+        GameObject chosen = FindObjectsOfType<Card>()[Random.Range(0, FindObjectsOfType<Card>().Length - 1)].gameObject;
+        var cloneData = chosen.GetComponent<Card>().data;
+        chosen = Instantiate(chosen);
+        chosen.GetComponent<Card>().data = cloneData;
+
         chosen.transform.SetParent(slot, false);
         chosen.transform.localPosition = Vector3.zero;
 
