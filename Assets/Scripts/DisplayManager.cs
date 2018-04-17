@@ -23,14 +23,14 @@ public class DisplayManager : MonoBehaviour {
 
     void InitCardPanel(Card initCard)
     {
-        float yMod = 0f;
+        float yMod = 175f;
         foreach (KeyValuePair<string, object> pair in initCard.data)
         {
             GameObject content = Instantiate(displayContentPrefab);
             content.transform.SetParent(cardPanel.transform, false);
-            content.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 100f + yMod);
+            content.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, yMod);
 
-            yMod += 30f;
+            yMod -= 30f;
 
             content.transform.Find("Label").GetComponent<Text>().text = pair.Key;
         }
