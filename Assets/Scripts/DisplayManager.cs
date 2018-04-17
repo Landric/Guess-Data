@@ -7,7 +7,7 @@ public class DisplayManager : MonoBehaviour {
 
     public GameObject displayContentPrefab;
 
-    GameObject cardPanel, decisionPanel;
+    GameObject cardPanel;
 
     DecisionManager decisionManager;
 
@@ -15,7 +15,6 @@ public class DisplayManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         cardPanel = GameObject.Find("CardPanel");
-        decisionPanel = GameObject.Find("DecisionPanel");
 
         decisionManager = GetComponent<DecisionManager>();
     }

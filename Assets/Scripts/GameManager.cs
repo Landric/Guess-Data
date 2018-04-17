@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
 
     public TextAsset csvFile;
 
-    const int NumberOfPlayers = 2;
+    public const int NumberOfPlayers = 2;
     public int CurrentPlayerID = 0;
 
     public Card[] ChosenCards;
@@ -24,15 +24,15 @@ public class GameManager : MonoBehaviour {
     void Start () {
         //ChosenCards = new Card[NumberOfPlayers];
         turnState = TurnState.CHOOSE_CARD;
-        StepTurn();
+        nextTurnButton.SetActive(true);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.anyKeyDown)
-        {
-            GetComponent<DisplayManager>().SetDecisionPanel();
-        }
+        //if (Input.anyKeyDown)
+        //{
+        //    GetComponent<DisplayManager>().SetDecisionPanel();
+        //}
     }
 
     public string GetData()
@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour {
         Camera.main.transform.localPosition = new Vector3(0, 6, -10);
         Camera.main.transform.localRotation = Quaternion.Euler(50, 0, 0);
         Camera.main.transform.parent.Rotate(new Vector3(0, 180, 0));
+
+
         foreach (Card card in FindObjectsOfType<Card>())
         {
             card.ToggleMask();
@@ -54,11 +56,22 @@ public class GameManager : MonoBehaviour {
 
         CurrentPlayerID = (CurrentPlayerID + 1) % NumberOfPlayers;
 
+        nextTurnButton.SetActive(false);
+
         turnState = (ChosenCards[CurrentPlayerID] == null) ? TurnState.CHOOSE_CARD : TurnState.QUESTION;
 
-        StepTurn();
+        if(ChosenCards[CurrentPlayerID] != null)
+        {
+            GetComponent<DecisionManager>().OpenPanel();
+        }
+        else
+        {
+            throw new System.Exception("Haven't selected a card yet");
+        }
+        //StepTurn();
     }
 
+    /*
     public void StepTurn()
     {
         switch (turnState)
@@ -68,8 +81,8 @@ public class GameManager : MonoBehaviour {
                 //No need to change turn state as this will happen when NextTurn() is called
                 break;
             case TurnState.QUESTION:
-                GameObject.Find("DecisionPanel").SetActive(false);
-                GameObject.Find("Next Turn Button").SetActive(true);
+                GetComponent<DecisionManager>().HidePanel();
+                nextTurnButton.SetActive(true);
                 break;
             case TurnState.FLIP:
                 //Should never be stepped at this point
@@ -83,7 +96,8 @@ public class GameManager : MonoBehaviour {
             case TurnState.READY:
                 NextTurn();
                 break;
-            */
+            
         }
     }
+    */
 }
