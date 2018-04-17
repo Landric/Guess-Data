@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: Enter number...
 --- !u!222 &83987881
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1981,7 +1981,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 744776564}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 994252974}
+        m_MethodName: Ask
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &744776564
@@ -2757,6 +2768,7 @@ GameObject:
   - component: {fileID: 994252971}
   - component: {fileID: 994252972}
   - component: {fileID: 994252973}
+  - component: {fileID: 994252974}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -2809,6 +2821,23 @@ MonoBehaviour:
     type: 2}
   decisionContentPrefab: {fileID: 1828370866158624, guid: a81d1d3060dce464db3e9e759eef5df0,
     type: 2}
+--- !u!114 &994252974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 994252970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75fa47854ab08b4eaeeffc5763ad281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPanel: {fileID: 1936586117}
+  StringPanel: {fileID: 1142528430}
+  NumberPanel: {fileID: 783827305}
+  TitlePanel: {fileID: 1802424680}
+  AskButton: {fileID: 744776561}
+  InstructionText: {fileID: 1449719027}
 --- !u!1 &1008423367
 GameObject:
   m_ObjectHideFlags: 0

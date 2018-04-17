@@ -5,15 +5,19 @@ using UnityEngine.UI;
 
 public class DisplayManager : MonoBehaviour {
 
-    public GameObject displayContentPrefab, decisionContentPrefab;
+    public GameObject displayContentPrefab;
 
     GameObject cardPanel, decisionPanel;
+
+    DecisionManager decisionManager;
 
 
 	// Use this for initialization
 	void Start () {
         cardPanel = GameObject.Find("CardPanel");
         decisionPanel = GameObject.Find("DecisionPanel");
+
+        decisionManager = GetComponent<DecisionManager>();
     }
 	
 	// Update is called once per frame
@@ -72,38 +76,9 @@ public class DisplayManager : MonoBehaviour {
         }
     }
 
-    void InitDecisionPanel(Card initCard)
-    {
-        float yMod = 65f;
-
-        Transform decisionCardPanel = decisionPanel.transform.Find("Card");
-        foreach (KeyValuePair<string, object> pair in initCard.data)
-        {
-            GameObject content = Instantiate(decisionContentPrefab);
-            content.transform.SetParent(decisionCardPanel, false);
-            content.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, yMod);
-
-            yMod -= 35f;
-
-            content.transform.Find("Label").GetComponent<Text>().text = pair.Key;
-
-            //TODO: Attach listeners to buttons here
-        }
-    }
 
     public void SetDecisionPanel()
     {
-        //If the only child is "Title", make sure to instantiate the data fields
-        if (decisionPanel.transform.Find("Card").childCount <= 1)
-        {
-            InitDecisionPanel(FindObjectOfType<GameManager>().ChosenCards[0]);
-        }
-
-        decisionPanel.transform.Find("StringPanel").gameObject.SetActive(false);
-        decisionPanel.transform.Find("NumberPanel").gameObject.SetActive(false);
-        decisionPanel.transform.Find("TitlePanel").gameObject.SetActive(false);
-        decisionPanel.transform.Find("InstructionText").gameObject.SetActive(false);
-
-        decisionPanel.SetActive(true);
+        decisionManager.OpenPanel();
     }
 }
