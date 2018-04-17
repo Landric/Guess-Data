@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour {
 
+
+
     public GameObject ContentPrefab;
 
     GameManager gm;
@@ -12,7 +14,7 @@ public class Card : MonoBehaviour {
 
     public Board board;
 
-    public string title;
+    public string datatype, title;
     public Dictionary<string, object> data;
 
 	// Use this for initialization

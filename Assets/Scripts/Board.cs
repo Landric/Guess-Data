@@ -66,6 +66,7 @@ public class Board : MonoBehaviour {
 
                 string[] cardData = dataRows.Dequeue().Split(',');
                 card.title = cardData[0];
+                card.datatype = headers[0];
                 cardGO.GetComponentInChildren<TextMesh>().text = card.title;
                 card.data = new Dictionary<string, object>();
                 for (int i = 1; i < headers.Length; i++)

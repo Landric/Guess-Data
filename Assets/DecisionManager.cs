@@ -184,7 +184,7 @@ public class DecisionManager : MonoBehaviour {
 
             string not = (correct) ? "IS" : "is NOT";
 
-            DecisionResponse.GetComponentInChildren<Text>().text = "Your opponent's repsone: Their card's " + selectedData + " " + not + " " + oprtr + " " + guess;
+            DecisionResponse.GetComponentInChildren<Text>().text = "Their " + gm.ChosenCards[(gm.CurrentPlayerID + 1) % GameManager.NumberOfPlayers].datatype + "'s " + selectedData + " " + not + " " + oprtr + " " + guess;
             DecisionResponse.SetActive(true);
             DecisionPanel.SetActive(false);
             gm.nextTurnButton.SetActive(true);
