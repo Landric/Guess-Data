@@ -108,6 +108,11 @@ public class Board : MonoBehaviour {
         chosen.transform.SetParent(slot, false);
         chosen.transform.localPosition = Vector3.zero;
 
+
+        //Don't destroy the collider; it prevents it being flipped,
+        //but also moused-over
+        //Destroy(chosen.GetComponentInChildren<BoxCollider>());
+
         if(gm.ChosenCards.Length <= 0)
         {
             gm.ChosenCards = new Card[2];

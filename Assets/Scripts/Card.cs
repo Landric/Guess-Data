@@ -65,7 +65,7 @@ public class Card : MonoBehaviour {
             return;
         }
 
-        if (board.PlayerID == gm.CurrentPlayerID)
+        if (board.PlayerID == gm.CurrentPlayerID && transform.parent.name != "ChosenCardSlot")
         {
             StartCoroutine(FlipDown());
         }
